@@ -55,6 +55,17 @@ svg{width:100%;max-width:560px;height:auto}
 .stage-wrap:fullscreen svg{max-width:min(80vw,900px);max-height:68vh}
 .stage-wrap:fullscreen .controls{margin-top:16px;justify-content:center}
 .stage-wrap:fullscreen .controls button{flex:0 1 220px;min-height:54px;font-size:1.05rem}
+body.presentation-open{overflow:hidden}
+.stage-wrap.student-presenting{position:fixed!important;inset:0!important;z-index:9999!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:22px 30px!important;border:0!important;border-radius:0!important;background:white!important;display:flex!important;flex-direction:column!important;box-shadow:none!important}
+.stage-wrap.student-presenting .status{flex:0 0 auto;font-size:1rem;text-align:center;margin-bottom:10px}
+.stage-wrap.student-presenting .stage{flex:1 1 auto;min-height:0!important;width:100%;border-radius:0;padding:34px;background:white}
+.stage-wrap.student-presenting .stage-message strong{font-size:clamp(4rem,9vw,8rem)}
+.stage-wrap.student-presenting .stage-message span{font-size:clamp(1.5rem,3vw,2.5rem)}
+.stage-wrap.student-presenting .equation{font-size:clamp(5rem,12vw,10rem)}
+.stage-wrap.student-presenting .big-answer{font-size:clamp(6rem,14vw,11rem)!important}
+.stage-wrap.student-presenting svg{max-width:min(80vw,900px);max-height:64dvh}
+.stage-wrap.student-presenting .controls{flex:0 0 auto;margin-top:16px;justify-content:center}
+.stage-wrap.student-presenting .controls button{flex:0 1 220px;min-height:54px;font-size:1.05rem}
 @media(max-width:800px){
   .tool-grid,.two-col{grid-template-columns:1fr}
   .families{grid-template-columns:repeat(3,1fr)}
