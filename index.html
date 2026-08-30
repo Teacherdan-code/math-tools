@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Math Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section id="homeView">
+      <header class="hero">
+        <h1>Math Tools</h1>
+        <p>Quick routines for thinking, talking, and building fluency.</p>
+      </header>
+
+      <div class="tool-grid">
+        <article class="card">
+          <h2>Quick Images</h2>
+          <p>Dots, ten frames, and double ten frames for subitizing and number sense.</p>
+          <button data-open="quick">Open tool</button>
+        </article>
+        <article class="card">
+          <h2>Addition &amp; Subtraction</h2>
+          <p>Mixed facts, Make 10, doubles, near doubles, and 9 facts.</p>
+          <button data-open="addsub">Open tool</button>
+        </article>
+        <article class="card">
+          <h2>Multiplication &amp; Division</h2>
+          <p>Selected fact families, equations, division, mixed practice, and arrays.</p>
+          <button data-open="multdiv">Open tool</button>
+        </article>
+      </div>
+
+      <section class="coming card">
+        <h3>Coming next</h3>
+        <p>Compare, Missing Number, Number Lines, Compose &amp; Decompose, and Which One?</p>
+      </section>
+    </section>
+
+    <section id="toolView" class="hidden">
+      <div class="toolbar">
+        <button id="backHome" class="secondary">← Math Tools</button>
+        <span id="toolTitle"></span>
+      </div>
+
+      <section id="quickTool" class="tool hidden">
+        <div class="two-col">
+          <form id="quickForm" class="panel">
+            <h2>Quick Images</h2>
+            <p class="muted">Choose the visual and timing.</p>
+            <label>Visual
+              <select id="quickVisual">
+                <option value="dots">Dots</option>
+                <option value="ten">Ten Frame</option>
+                <option value="double">Double Ten Frame</option>
+              </select>
+            </label>
+            <div class="two-small">
+              <label>Minimum<input id="quickMin" type="number" min="1" max="20" value="1"></label>
+              <label>Maximum<input id="quickMax" type="number" min="1" max="20" value="10"></label>
+            </div>
+            <label>Flash time
+              <select id="quickTime">
+                <option value="1000">1 second</option>
+                <option value="2000" selected>2 seconds</option>
+                <option value="3000">3 seconds</option>
+                <option value="5000">5 seconds</option>
+                <option value="manual">Teacher controlled</option>
+              </select>
+            </label>
+            <label>Rounds
+              <select id="quickRounds">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+            </label>
+            <p id="quickError" class="error hidden">Check the number range.</p>
+            <button type="submit">Start routine</button>
+          </form>
+
+          <div class="stage-wrap panel">
+            <div id="quickStatus" class="status">Set up your routine.</div>
+            <div class="stage">
+              <div id="quickReady" class="stage-message"><strong>Ready?</strong><span>Start the routine when your class is ready.</span></div>
+              <svg id="quickSvg" class="hidden" viewBox="0 0 520 320" aria-label="Quick image"></svg>
+              <div id="quickThink" class="stage-message hidden"><strong>How many did you see?</strong><span>How did you see it?</span></div>
+              <div id="quickAnswer" class="stage-message hidden"><strong id="quickAnswerNum" class="big-answer"></strong><span>Look again. How was it organized?</span></div>
+            </div>
+            <div class="controls">
+              <button id="quickFlash" class="hidden">Flash</button>
+              <button id="quickHide" class="secondary hidden">Hide</button>
+              <button id="quickReveal" class="hidden">Reveal</button>
+              <button id="quickNext" class="hidden">Next round</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="addsubTool" class="tool hidden">
+        <div class="two-col">
+          <form id="addsubForm" class="panel">
+            <h2>Addition &amp; Subtraction</h2>
+            <label>Operation
+              <select id="addsubOp">
+                <option value="addition">Addition</option>
+                <option value="subtraction">Subtraction</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </label>
+            <label>Fact set
+              <select id="addsubStrategy">
+                <option value="mixed">Mixed facts</option>
+                <option value="make10">Make 10</option>
+                <option value="doubles">Doubles</option>
+                <option value="near">Near doubles</option>
+                <option value="nine">+9 / −9</option>
+              </select>
+            </label>
+            <label>Number range
+              <select id="addsubRange">
+                <option value="10">Within 10</option>
+                <option value="20" selected>Within 20</option>
+                <option value="100">Within 100</option>
+              </select>
+            </label>
+            <label>Flash time
+              <select id="addsubTime">
+                <option value="1000">1 second</option>
+                <option value="2000">2 seconds</option>
+                <option value="3000" selected>3 seconds</option>
+                <option value="5000">5 seconds</option>
+                <option value="manual">Teacher controlled</option>
+              </select>
+            </label>
+            <label>Rounds
+              <select id="addsubRounds">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+            </label>
+            <button type="submit">Start routine</button>
+          </form>
+
+          <div class="stage-wrap panel">
+            <div id="addsubStatus" class="status">Set up your routine.</div>
+            <div class="stage">
+              <div id="addsubReady" class="stage-message"><strong>Ready?</strong></div>
+              <div id="addsubProblem" class="equation hidden"></div>
+              <div id="addsubThink" class="stage-message hidden"><strong>Solve it.</strong><span>What strategy did you use?</span></div>
+              <div id="addsubAnswer" class="stage-message hidden"><strong id="addsubEquation" class="equation"></strong><span>How did you know?</span></div>
+            </div>
+            <div class="controls">
+              <button id="addsubFlash" class="hidden">Flash</button>
+              <button id="addsubHide" class="secondary hidden">Hide</button>
+              <button id="addsubReveal" class="hidden">Reveal</button>
+              <button id="addsubNext" class="hidden">Next round</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="multdivTool" class="tool hidden">
+        <div class="two-col">
+          <form id="multdivForm" class="panel">
+            <h2>Multiplication &amp; Division</h2>
+            <p class="muted">Choose one or more fact families.</p>
+
+            <label>Mode
+              <select id="multdivMode">
+                <option value="equations">Equation facts</option>
+                <option value="arrays">Arrays</option>
+              </select>
+            </label>
+
+            <label id="multdivOpWrap">Operation
+              <select id="multdivOp">
+                <option value="multiplication">Multiplication</option>
+                <option value="division">Division</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </label>
+
+            <fieldset>
+              <legend>Fact families</legend>
+              <div class="families">
+                <label><input class="family" type="checkbox" value="2"> ×2</label>
+                <label><input class="family" type="checkbox" value="3"> ×3</label>
+                <label><input class="family" type="checkbox" value="4"> ×4</label>
+                <label><input class="family" type="checkbox" value="5" checked> ×5</label>
+                <label><input class="family" type="checkbox" value="6"> ×6</label>
+                <label><input class="family" type="checkbox" value="7"> ×7</label>
+                <label><input class="family" type="checkbox" value="8"> ×8</label>
+                <label><input class="family" type="checkbox" value="9"> ×9</label>
+                <label><input class="family" type="checkbox" value="10" checked> ×10</label>
+                <label><input class="family" type="checkbox" value="11"> ×11</label>
+                <label><input class="family" type="checkbox" value="12"> ×12</label>
+              </div>
+              <div class="mini-controls">
+                <button id="selectAllFamilies" type="button" class="secondary">Select all</button>
+                <button id="clearFamilies" type="button" class="secondary">Clear</button>
+              </div>
+            </fieldset>
+
+            <label>Other factor
+              <select id="multdivMax">
+                <option value="5">1–5</option>
+                <option value="10" selected>1–10</option>
+                <option value="12">1–12</option>
+              </select>
+            </label>
+
+            <label>Flash time
+              <select id="multdivTime">
+                <option value="1000">1 second</option>
+                <option value="2000">2 seconds</option>
+                <option value="3000" selected>3 seconds</option>
+                <option value="5000">5 seconds</option>
+                <option value="manual">Teacher controlled</option>
+              </select>
+            </label>
+
+            <label>Rounds
+              <select id="multdivRounds">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+            </label>
+
+            <p id="multdivError" class="error hidden">Choose at least one fact family.</p>
+            <button type="submit">Start routine</button>
+          </form>
+
+          <div class="stage-wrap panel">
+            <div id="multdivStatus" class="status">Set up your routine.</div>
+            <div class="stage">
+              <div id="multdivReady" class="stage-message"><strong>Ready?</strong></div>
+              <div id="multdivEquation" class="equation hidden"></div>
+              <svg id="multdivArray" class="hidden" viewBox="0 0 560 360" aria-label="Multiplication array"></svg>
+              <div id="multdivThink" class="stage-message hidden"><strong id="multdivThinkTitle"></strong><span id="multdivThinkSub"></span></div>
+              <div id="multdivAnswer" class="stage-message hidden"><strong id="multdivAnswerMain" class="equation"></strong><span id="multdivAnswerSub"></span></div>
+            </div>
+            <div class="controls">
+              <button id="multdivFlash" class="hidden">Flash</button>
+              <button id="multdivHide" class="secondary hidden">Hide</button>
+              <button id="multdivReveal" class="hidden">Reveal</button>
+              <button id="multdivNext" class="hidden">Next round</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
