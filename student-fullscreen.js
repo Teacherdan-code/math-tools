@@ -1,9 +1,20 @@
 (() => {
   const configs = [
-    { tool: '#quickTool', wrap: '#quickTool .stage-wrap', controls: '#quickTool .controls' },
-    { tool: '#addsubTool', wrap: '#addsubTool .stage-wrap', controls: '#addsubTool .controls' },
-    { tool: '#multdivTool', wrap: '#multdivTool .stage-wrap', controls: '#multdivTool .controls' }
+    { wrap: '#quickTool .stage-wrap', controls: '#quickTool .controls' },
+    { wrap: '#addsubTool .stage-wrap', controls: '#addsubTool .controls' },
+    { wrap: '#multdivTool .stage-wrap', controls: '#multdivTool .controls' }
   ];
+
+  let activeWrap = null;
+
+  function exitPresentation() {
+    if (!activeWrap) return;
+    activeWrap.classList.remove('student-presenting');
+    document.body.classList.remove('presentation-open');
+    const btn = activeWrap.querySelector('.student-fullscreen-btn');
+    if (btn) btn.textContent = 'Full Screen';
+    activeWrap = null;
+  }
 
   configs.forEach(({ wrap, controls }) => {
     const stageWrap = document.querySelector(wrap);
@@ -16,22 +27,23 @@
     button.textContent = 'Full Screen';
     controlRow.appendChild(button);
 
-    button.addEventListener('click', async () => {
-      try {
-        if (document.fullscreenElement === stageWrap) {
-          await document.exitFullscreen();
-        } else {
-          if (document.fullscreenElement) await document.exitFullscreen();
-          await stageWrap.requestFullscreen();
-        }
-      } catch (e) {}
+    button.addEventListener('click', () => {
+      if (activeWrap === stageWrap) {
+        exitPresentation();
+        return;
+      }
+      exitPresentation();
+      activeWrap = stageWrap;
+      stageWrap.classList.add('student-presenting');
+      document.body.classList.add('presentation-open');
+      button.textContent = 'Exit Full Screen';
     });
   });
 
-  document.addEventListener('fullscreenchange', () => {
-    document.querySelectorAll('.student-fullscreen-btn').forEach(button => {
-      const wrap = button.closest('.stage-wrap');
-      button.textContent = document.fullscreenElement === wrap ? 'Exit Full Screen' : 'Full Screen';
-    });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && activeWrap) {
+      e.preventDefault();
+      exitPresentation();
+    }
   });
 })();
